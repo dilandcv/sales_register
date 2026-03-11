@@ -8,25 +8,34 @@ def register_sale():
         price = float(input("Enter the price: "))
 
         if product in sales:
-            sales[product]['quantity'] += quantity
-            sales[product]['total'] += quantity * price
+            sales[product]["quantity"] += quantity
         else:
-            sales[product] = {'quantity': quantity, 
-                             'total': quantity * price}
+            sales[product] = {"price": price, 
+                             "quantity": quantity,}
+                             
         another_product = input("Do you want to add another product? (yes/no): ")
         print("------------------------------------------------------------------------")
-    return sales
 
-def show_summary(sales):
-    total = 0
+def total_sales():
+    total=0
+    for product in sales:
+        price = sales [product]["price"]
+        quantity = sales [product]["quantity"]
+        subtotal = price * quantity
+        total = subtotal + total
+    return total
+
+def show_summary():
     print("SALES SUMMARY: ")
     for product in sales:
         print("product:", product)
-        print("quantity:", sales[product]['quantity'])
-        print("total:", sales[product]['total'])
+        print("quantity:", sales[product]["quantity"])
+        print("price:", sales[product]["price"])
         print("------------------------------------------------------------------------")
-    total += sales[product]['total']
-    print("Total sales:", total)
+        
+    
 
 register_sale()
-show_summary(sales)
+total = total_sales()
+show_summary()
+print("total:", total)
